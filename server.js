@@ -1,7 +1,10 @@
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 const PORT = 3000;
+
+const app = express();
 
 https
     .createServer(
@@ -14,4 +17,8 @@ https
     )
     .listen(PORT, function () {
         console.log('App listening at https://%s:%s', '127.0.0.1', PORT);
+    });
+
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, './build/index.html'));
     });
